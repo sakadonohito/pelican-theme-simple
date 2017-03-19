@@ -1,2 +1,25 @@
-{% extends "index.html" %}
-{% block title %}{{ SITENAME }} - {{ category }}{% endblock %}
+<!-- 特定カテゴリの記事リスト -->
+{% extends "base.html" %}
+{% block title %}{{ SITENAME }} - Category: {{ category }}{% endblock %}
+
+<!-- ページごとのh1の内容 -->
+{% block content_h1 %}
+<h1>Category: {{category}}</h1>
+{% endblock content_h1 %}
+
+{% block content %}
+<main role="main">
+	<div class="main-contents">
+		<div class="article-list">
+			{% if articles %}
+            {% for article in articles_page.object_list[:5] %}
+			<article>
+				<h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+				<p>{{ article.summary }}<a class="readmore" href="{{ SITEURL }}/{{ article.url }}">more...</a></p>
+			</article>
+			{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+</main>
+{% endblock %}

@@ -1,16 +1,23 @@
 {% extends "base.html" %}
+{% block title %}Author - {{SITENAME}}{% endblock %}
 
-{% block title %}{{ SITENAME }} - Authors{% endblock %}
+<!-- ページごとのh1の内容 -->
+{% block content_h1 %}
+<h1>Author</h1>
+{% endblock content_h1 %}
 
 {% block content %}
-
-<section id="content" class="body">
-	<h1>Authors on {{ SITENAME }}</h1>
-	<ul>
-		{% for author, articles in authors|sort %}
-		<li><a href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a> ({{ articles|count }})</li>
-		{% endfor %}
-	</ul>
-</section>
-
-{% endblock %}
+<main role="main">
+	<div class="main-contents">
+        {% if articles %}
+		<div class="article-list">
+			<article>
+				<h3>sakadonohito</h3>
+				<p>しょーもな おっさん</p>
+				<h3><a href="{{ SITEURL }}/pages/about.html">About.</a></h3>
+			</article>
+		</div>
+		{% endif %}
+	</div>
+</main>
+{% endblock content %}

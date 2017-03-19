@@ -1,18 +1,32 @@
 {% extends "base.html" %}
 {% block title %}{{ article.title|striptags }}{% endblock %}
-{% block content %}
-<section id="content" class="body">
-	<article>
-		<header>
-			<h1 class="entry-title">
-				<a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
-				   title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h1>
-		</header>
 
-		<div class="entry-content">
-			{% include 'article_infos.html' %}
-			{{ article.content }}
-		</div><!-- /.entry-content -->
-	</article>
-</section>
+<!-- ページごとのh1の内容 -->
+{% block content_h1 %}
+<h1>{{article.title|striptags}}</h1>
+{% endblock content_h1 %}
+
+{% block content %}
+<main role="main">
+	<div class="main-contents">		
+		<article class="main-content">
+			<header>
+				<ul class="horizontal-list-over767">
+					<li>Published: {{article.date}}</li>
+					{% if article.modified %}<li>Updated: {{article.date}}</li>{% endif %}
+					{% if article.authors %}<li>Author: {{article.authors[0]}}</li>{% endif %}
+				</ul>
+				<p>Category: <a href="{{SITEURL}}/{{article.category.url}}">{{article.category}}</a></p>
+			</header>
+			<section>
+				{{article.content}}
+			</section>
+			{% if article.tags %}
+			<footer>
+				{% include 'taglist.html' %}
+			</footer>
+			{% endif %}
+		</article>
+	</div>
+</main>
 {% endblock %}

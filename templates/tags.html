@@ -1,16 +1,22 @@
+<!-- タグのリスト -->
 {% extends "base.html" %}
+{% block title %}Tag — {{ SITENAME }}{% endblock %}
 
-{% block title %}{{ SITENAME }} - Tags{% endblock %}
+<!-- ページごとのh1の内容 -->
+{% block content_h1 %}
+<h1>Tag for {{ SITENAME }}</h1>
+{% endblock content_h1 %}
 
 {% block content %}
-
-<section id="content" class="body">
-	<h1>Tags for {{ SITENAME }}</h1>
-	<ul>
-		{% for tag, articles in tags|sort %}
-		<li><a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a> ({{ articles|count }})</li>
-		{% endfor %}
-	</ul>
-</section>
-
+<main role="main">
+	<div class="main-contents">
+		<div class="article-list">
+        	{% for tag, articles in tags|sort %}
+			<article>
+				<h3><a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a> ({{ articles|count }})</h3>
+			</article>
+        	{% endfor %}
+		</div>
+	</div>
+</main>
 {% endblock %}

@@ -1,13 +1,26 @@
+<!-- 特定期間の記事リスト -->
 {% extends "base.html" %}
-{% block content %}
-<section id="content" class="body">
-	<h1>Archives for {{ period | reverse | join(' ') }}</h1>
+{% block title %}{{ SITENAME }} - Archive: {{period[0]}}年{{period[1]}}{% endblock %}
 
-	<dl>
-		{% for article in dates %}
-		<dt>{{ article.locale_date }}</dt>
-		<dd><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></dd>
-		{% endfor %}
-	</dl>
-</section>
+<!-- ページごとのh1の内容 -->
+{% block content_h1 %}
+<h1>Archives for {{period[0]}}年{{period[1]}}</h1>
+{% endblock content_h1 %}
+
+{% block content %}
+<main role="main">
+	<div class="main-contents">
+		<div class="article-list">
+			{% if dates %}
+            {% for article in dates %}
+			<article>
+				<h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+				<p>{{ article.date|strftime('%Y年%m月%d日') }}</p>
+				<p>{{ article.summary }}</p>
+			</article>
+			{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+</main>
 {% endblock %}

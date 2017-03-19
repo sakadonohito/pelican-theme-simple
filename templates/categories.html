@@ -1,1 +1,24 @@
-a
+<!-- カテゴリのリスト -->
+{% extends "base.html" %}
+{% block title %}Category — {{ SITENAME }}{% endblock %}
+
+<!-- ページごとのh1の内容 -->
+{% block content_h1 %}
+<h1>Categories for {{ SITENAME }}</h1>
+{% endblock content_h1 %}
+
+{% block content %}
+<main role="main">
+	<div class="main-contents">
+		<div class="article-list">
+		{% if categories %}
+        	{% for cat, articles in categories %}
+			<article>
+				<h3><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a>({{articles|count}})</h3>
+			</article>
+        	{% endfor %}
+		{% endif %}
+		</div>
+	</div>
+</main>
+{% endblock %}

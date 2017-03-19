@@ -1,13 +1,26 @@
+<!-- アーカイブのリスト -->
 {% extends "base.html" %}
-{% block content %}
-<section id="content" class="body">
-	<h1>Archives for {{ SITENAME }}</h1>
+{% block title %}Archive — {{ SITENAME }}{% endblock %}
 
-	<dl>
-		{% for article in dates %}
-		<dt>{{ article.locale_date }}</dt>
-		<dd><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></dd>
+<!-- ページごとのh1の内容 -->
+{% block content_h1 %}
+<h1>Archives for {{ SITENAME }}</h1>
+{% endblock content_h1 %}
+
+{% block content %}
+<main role="main">
+	<div class="main-contents">
+		<div class="article-list">
+		{% if dates %}
+		{% for year, date_year in dates|groupby('date.year')|sort(reverse=NEWEST_FIRST_ARCHIVES) %}
+			{% for month, articles in date_year|groupby('date.month')|sort(reverse=NEWEST_FIRST_ARCHIVES) %}
+			<article>
+				<h3><a href="/{{ year }}/{{ '%02d' % month }}/">{{ year }}年{{ month }}月</a>({{ articles|count }})</h3>
+			</article>
+			{% endfor %}
 		{% endfor %}
-	</dl>
-</section>
+		{% endif %}
+		</div>
+	</div>
+</main>
 {% endblock %}
